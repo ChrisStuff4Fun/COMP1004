@@ -6,14 +6,34 @@
     <meta charset="utf-8" />
     <title>Password manager</title>
     <link rel="stylesheet" href="mainStyles.css">
+    <script src="mainScript.js"></script>
 
 </head>
 
 
 <body>
-    <center><h1>Password Manager</h1></center>
+    <h1>Password Manager</h1>
 
-    <form>click me</form>
+    <br>
+
+    <form id="loginForm">
+        <label for="pwInput">Password:</label>
+        <input type="text" id="pwInput" name="pwInput" placeholder="Enter password.">
+        <input type="submit" value="Unlock">
+    </form>
+
+    <button onclick="checkClick()">hello</button>
+
+    <br>
+    <br>
+    <div class="passwordBox" id="passwords">
+        <p id="pw1">hello2</p>
+        <p id="pw2">hello1</p>
+        <p id="pw1">hello2fdghfghfghfghfgh</p>
+        <p id="pw2">hello1</p>
+        <p id="pw1">hello2</p>
+        <p id="pw2">hello1fh</p>
+    </div>
 
 
 
