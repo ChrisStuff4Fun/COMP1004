@@ -1,26 +1,41 @@
 // JavaScript source code
 
 
-var showBool = false;
+// div id's:: loginBox createBox passwordBox mainMenu
 
-function hidePW() {
-    let element = document.getElementById("passwords");
+
+
+function hideElements(groupName) {
+    let element = document.getElementById(groupName);
     element.classList.add("hidden");
 };
 
-function showPW() {
-    let element = document.getElementById("passwords");
+function showElements(groupName) {
+    let element = document.getElementById(groupName);
     element.classList.remove("hidden");
 };
 
-
-function checkClick() {
-    if (showBool == false) {
-        showBool = true;
-        showPW();
-    }
-    else {
-        showBool = false;
-        hidePW();
-    }
+function setLogin() {
+    showElements("loginBox");
+    hideElements("createBox");
+    hideElements("passwordBox");
+    hideElements("mainMenu")
 };
+
+function setCreate() {
+    hideElements("loginBox");
+    showElements("createBox");
+    hideElements("passwordBox");
+    hideElements("mainMenu")
+};
+
+
+function setMain() {
+    hideElements("loginBox");
+    hideElements("createBox");
+    hideElements("passwordBox");
+    showElements("mainMenu") 
+};
+
+
+

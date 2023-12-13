@@ -12,21 +12,46 @@
 
 
 <body>
+
     <h1>Password Manager</h1>
 
     <br>
 
-    <form id="loginForm">
-        <label for="pwInput">Password:</label>
-        <input type="text" id="pwInput" name="pwInput" placeholder="Enter password.">
-        <input type="submit" value="Unlock">
-    </form>
+    <div class="mainMenu" id="mainMenu">
+        <button onclick="setLogin()">Login</button>
+        <br>
+        <br>
+        <button onclick="setCreate()">Create</button>
+    </div>
 
-    <button onclick="checkClick()">hello</button>
+
+
+    <div class="createBox" id="createBox">
+        <form>
+            <label for="pwInput">New password:</label>
+            <input type="text" id="pwInput" placeholder="Enter password." >
+            <input type="submit" value="Create">
+        </form>
+        <br>
+        <button onclick="setMain()">Back</button>
+    </div>
+
+
+    <div class="loginBox" id="loginBox">
+        <form action="">
+            <label for="pwInput">Password:</label>
+            <input type="text" id="pwInput" placeholder="Enter password." >
+            <input type="submit" value="Unlock">
+        </form>
+        <br>
+        <button onclick="setMain()">Back</button>
+    </div>
+
 
     <br>
     <br>
-    <div class="passwordBox" id="passwords">
+
+    <div class="passwordBox" id="passwordBox">
         <p id="pw1">hello2</p>
         <p id="pw2">hello1</p>
         <p id="pw1">hello2fdghfghfghfghfgh</p>
@@ -37,6 +62,9 @@
 
 
 
+
+
+    <script>Window.onload = setMain();</script>
 
 </body>
 </html>
