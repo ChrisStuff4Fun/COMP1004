@@ -7,13 +7,42 @@
 
 function hideElements(groupName) {
     let element = document.getElementById(groupName);
-    element.classList.add("hidden");
+    if ( element != null ) {
+        //element.classList.add("hidden");
+        element.style.display = 'none';
+    }
 };
 
 function showElements(groupName) {
     let element = document.getElementById(groupName);
-    element.classList.remove("hidden");
+    if ( element != null ) {
+        //element.classList.remove("hidden");
+        element.style.display = 'block';
+    }
 };
+
+function getTextInput(inputID) {
+
+    var input = document.getElementById(inputID);
+    var value = "";
+
+    if (input != null){
+        value = input.value;
+    }
+
+    return value;
+}
+
+
+
+function checkPWIn() {
+    var password = getTextInput("pwInput");
+
+    alert(password)
+
+}
+
+
 
 function setLogin() {
     showElements("loginBox");

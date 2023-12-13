@@ -5,8 +5,8 @@
 
     <meta charset="utf-8" />
     <title>Password manager</title>
-    <link rel="stylesheet" href="mainStyles.css">
-    <script src="mainScript.js"></script>
+    <link rel="stylesheet" href="./mainStyles.css">
+    <script src="./mainScript.js"></script>
 
 </head>
 
@@ -29,7 +29,7 @@
     <div class="createBox" id="createBox">
         <form>
             <label for="pwInput">New password:</label>
-            <input type="text" id="pwInput" placeholder="Enter password." >
+            <input type="text" id="newPwInput" placeholder="Enter password." >
             <input type="submit" value="Create">
         </form>
         <br>
@@ -38,12 +38,12 @@
 
 
     <div class="loginBox" id="loginBox">
-        <form action="">
+        <div>
             <label for="pwInput">Password:</label>
             <input type="text" id="pwInput" placeholder="Enter password." >
-            <input type="submit" value="Unlock">
-        </form>
-        <br>
+            <button onclick="checkPWIn()">Submit</button>
+        </div>
+       
         <button onclick="setMain()">Back</button>
     </div>
 
