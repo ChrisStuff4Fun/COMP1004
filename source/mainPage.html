@@ -13,11 +13,11 @@
 
 <body>
 
-    <h1>Password Manager</h1>
+    <h1 class="poshBox">Password Manager</h1>
 
     <br>
 
-    <div class="mainMenu" id="mainMenu">
+    <div id="mainMenu" class="poshBox">
         <button onclick="setLogin()">Login</button>
         <br>
         <br>
@@ -26,22 +26,22 @@
 
 
 
-    <div class="createBox" id="createBox">
-        <form>
+    <div id="createBox" class="poshBox">
+        <div>
             <label for="pwInput">New password:</label>
-            <input type="text" id="newPwInput" placeholder="Enter password." >
-            <input type="submit" value="Create">
-        </form>
-        <br>
+            <input type="text" id="newPWInput" placeholder="Enter password." onkeyup="checkNewPWValid()" >
+            <button onclick="setNewPW()" id="createAccountButton" disabled="disabled">Create</button>
+        </div>
+
         <button onclick="setMain()">Back</button>
     </div>
 
 
-    <div class="loginBox" id="loginBox">
+    <div id="loginBox" class="poshBox">
         <div>
             <label for="pwInput">Password:</label>
-            <input type="text" id="pwInput" placeholder="Enter password." >
-            <button onclick="checkPWIn()">Submit</button>
+            <input type="text" id="pwInput" placeholder="Enter password." onkeyup="checkPWValid()">
+            <button onclick="checkPWIn()" id="logInButton" disabled="disabled">Log-in</button>
         </div>
        
         <button onclick="setMain()">Back</button>
@@ -52,12 +52,14 @@
     <br>
 
     <div class="passwordBox" id="passwordBox">
-        <p id="pw1">hello2</p>
-        <p id="pw2">hello1</p>
-        <p id="pw1">hello2fdghfghfghfghfgh</p>
-        <p id="pw2">hello1</p>
-        <p id="pw1">hello2</p>
-        <p id="pw2">hello1fh</p>
+ 
+
+        <div>
+            <button onclick="createAccountBox()">Add</button>
+            <button onclick="saveAccounts()">Save</button>
+            <button onclick="setMain()">Back</button>
+        </div>
+
     </div>
 
 
