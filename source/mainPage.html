@@ -6,7 +6,7 @@
     <meta charset="utf-8" />
     <title>Password manager</title>
     <link rel="stylesheet" href="./mainStyles.css">
-    <script src="./mainScript.js"></script>
+    <script type="text/javascript" src="./mainScript.js"></script>
 
 </head>
 
@@ -26,24 +26,35 @@
 
 
 
+
     <div id="createBox" class="poshBox">
         <div>
-            <label for="pwInput">New password:</label>
-            <input type="text" id="newPWInput" placeholder="Enter password." onkeyup="checkNewPWValid()" >
-            <button onclick="setNewPW()" id="createAccountButton" disabled="disabled">Create</button>
+            <label for="newPWInput">New password:</label>
+            <input type="password" id="newPWInput" placeholder="Enter password" onkeyup="checkNewPWValid()">
         </div>
-
+        <div>
+            <label for="confirmPWInput">Confirm password:</label>
+            <input type="password" id="confirmPWInput" placeholder="Enter password" onkeyup="checkPWMatches()">
+        </div>
+        <button onclick="setNewPW()" id="createAccountButton" disabled="disabled">Create</button>
         <button onclick="setMain()">Back</button>
+
+        <p id="pwTooShort" class="passwordAlert">Password must be at least 10 characters long.</p>
+        <p id="invalidChars" class="passwordAlert">Password must not contain any special characters.</p>
+        <p id="noNumber" class="passwordAlert">Password must contain at least 1 number.</p>
+
     </div>
+
+
 
 
     <div id="loginBox" class="poshBox">
         <div>
             <label for="pwInput">Password:</label>
-            <input type="text" id="pwInput" placeholder="Enter password." onkeyup="checkPWValid()">
+            <input type="password" id="pwInput" placeholder="Enter password." onkeyup="checkPWValid()">
             <button onclick="checkPWIn()" id="logInButton" disabled="disabled">Log-in</button>
         </div>
-       
+
         <button onclick="setMain()">Back</button>
     </div>
 
@@ -52,7 +63,7 @@
     <br>
 
     <div class="passwordBox" id="passwordBox">
- 
+
 
         <div>
             <button onclick="createAccountBox()">Add</button>
@@ -66,7 +77,7 @@
 
 
 
-    <script>Window.onload = setMain();</script>
+    <script type="text/javascript">Window.onload = setMain();</script>
 
 </body>
 </html>

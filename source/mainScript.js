@@ -65,6 +65,20 @@ function getTextInput(inputID) {
 
 
 
+function checkNewPWValid() {
+    var newPassword = getTextInput("newPWInput");
+    var passwordLength = newPassword.length;
+
+
+    if (passwordLength >= 10) {
+        hideElements("pwTooShort");
+    }
+    else {
+        showElements("pwTooShort");
+    }
+
+}
+
 function checkPWIn() {
     var password = getTextInput("pwInput");
 

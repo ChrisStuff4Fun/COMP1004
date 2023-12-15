@@ -40,6 +40,14 @@ input {
 }
 
 
+
+.passwordAlert {
+    color: red;
+    font-weight: bold;
+
+
+}
+
 .poshBox {
     margin: auto;
     text-align: center;
