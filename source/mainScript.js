@@ -66,16 +66,70 @@ function getTextInput(inputID) {
 
 
 function checkNewPWValid() {
+
     var newPassword = getTextInput("newPWInput");
+
     var passwordLength = newPassword.length;
 
+    var pwContainsNum   = false;
+    var pwLongEnough    = false;
+    var containsInvalid = false;
+
+    for (var i = 0; i < 10; i++) {
+        if (newPassword.includes(i)) {
+            pwContainsNum = true;
+        }
+    }
+
+
+    for (var i = 0; i < passwordLength; i++) {
+        var asciiVal = newPassword.charCodeAt(i);
+        if ( (asciiVal < 48) || ((asciiVal > 57) && (asciiVal < 65)) || ((asciiVal > 90) && (asciiVal < 97)) || (asciiVal > 122) ) {
+            containsInvalid = true;
+        }
+    }
+
+
+
+    if (containsInvalid) {
+        showElements("invalidChars");
+    }
+    else {
+        hideElements("invalidChars");
+    }
+
+
+    if (pwContainsNum == false) {
+        showElements("noNumber");
+    }
+    else {
+        hideElements("noNumber");
+    }
 
     if (passwordLength >= 10) {
+        pwLongEnough = false;
         hideElements("pwTooShort");
     }
     else {
+        pwLongEnough = true;
         showElements("pwTooShort");
     }
+
+
+
+
+    
+
+    createButton = document.getElementById("createAccountButton");
+
+    if ( pwContainsNum && pwLongEnough && (containsInvalid == false)) { 
+        createButton.disabled = false;
+    }
+    else {s
+        createButton.disabled = true;
+    }
+
+
 
 }
 
