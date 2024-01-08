@@ -34,11 +34,14 @@
         </div>
         <div>
             <label for="confirmPWInput">Confirm password:</label>
-            <input type="password" id="confirmPWInput" placeholder="Enter password" onkeyup="checkPWMatches()">
+            <input type="password" id="confirmPWInput" placeholder="Enter password" onkeyup="checkNewPWValid()">
         </div>
-        <button onclick="setNewPW()" id="createAccountButton" disabled="disabled">Create</button>
+        <button onclick="setNewPW()" id="createAccountButton" disabled>Create</button>
         <button onclick="setMain()">Back</button>
 
+
+
+        <p id="pwMismatch" class="passwordAlert">Passwords do not match.</p>
         <p id="pwTooShort" class="passwordAlert">Password must be at least 10 characters long.</p>
         <p id="invalidChars" class="passwordAlert">Password must not contain any special characters.</p>
         <p id="noNumber" class="passwordAlert">Password must contain at least 1 number.</p>
@@ -52,7 +55,7 @@
         <div>
             <label for="pwInput">Password:</label>
             <input type="password" id="pwInput" placeholder="Enter password." onkeyup="checkPWValid()">
-            <button onclick="checkPWIn()" id="logInButton" disabled="disabled">Log-in</button>
+            <button onclick="checkPWIn()" id="logInButton" disabled>Log-in</button>
         </div>
 
         <button onclick="setMain()">Back</button>
@@ -72,8 +75,6 @@
         </div>
 
     </div>
-
-
 
 
 

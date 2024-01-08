@@ -3,12 +3,32 @@
 
 // div id's:: loginBox createBox passwordBox mainMenu
 
+/*
+        imports
+*/
+
+
+
+/* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - * /
+
+
+
+
+/*
+        Globals
+*/
 
 var loggedInBool  = false;
-var pwRows        = 0;
+var pwRows = 0;
+
+/* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 
 
 
+
+/*
+        Page States
+*/
 function setLogin() {
     showElements("loginBox");
     hideElements("createBox");
@@ -36,7 +56,13 @@ function setLoggedIn() {
     hideElements("mainMenu")
 };
 
+/* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 
+
+
+/*
+        Assisstant functions
+*/
 function hideElements(groupName) {
     var element = document.getElementById(groupName);
     if ( element != null ) {
@@ -64,40 +90,59 @@ function getTextInput(inputID) {
 }
 
 
+function hashString(stringIn) {
+    const textAsBuffer = new TextEncoder().encode(stringIn);
+    const hashBuffer = window.crypto.subtle.digest("SHA-256", textAsBuffer);
+    const hashArray = Array.from(new Uint8Array(hashBuffer));
+    const hash = hashArray
+        .map((item) => item.toString(16).padStart(2, "0"))
+        .join("");
+    return hash;
+    
+}
+
+
+/* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
+
+
+
+/*
+        Main Functions
+*/
+
+
 
 function checkNewPWValid() {
 
     var newPassword = getTextInput("newPWInput");
+    var confNewPassword = getTextInput("confirmPWInput");
 
     var passwordLength = newPassword.length;
 
-    var pwContainsNum   = false;
-    var pwLongEnough    = false;
-    var containsInvalid = false;
-
+    var pwContainsNum     = false;
+    var pwLongEnough      = false;
+    var containsOnlyValid = true;
+    var pwMatches         = false;
+    
     for (var i = 0; i < 10; i++) {
         if (newPassword.includes(i)) {
             pwContainsNum = true;
         }
     }
 
-
     for (var i = 0; i < passwordLength; i++) {
         var asciiVal = newPassword.charCodeAt(i);
         if ( (asciiVal < 48) || ((asciiVal > 57) && (asciiVal < 65)) || ((asciiVal > 90) && (asciiVal < 97)) || (asciiVal > 122) ) {
-            containsInvalid = true;
+            containsOnlyValid = false;
         }
     }
 
-
-
-    if (containsInvalid) {
-        showElements("invalidChars");
-    }
-    else {
+    if (containsOnlyValid) {
         hideElements("invalidChars");
     }
-
+    else {
+        showElements("invalidChars");
+    }
 
     if (pwContainsNum == false) {
         showElements("noNumber");
@@ -107,31 +152,34 @@ function checkNewPWValid() {
     }
 
     if (passwordLength >= 10) {
-        pwLongEnough = false;
+        pwLongEnough = true;
         hideElements("pwTooShort");
     }
     else {
-        pwLongEnough = true;
+        pwLongEnough = false;
         showElements("pwTooShort");
     }
 
-
-
-
-    
+    if (newPassword != confNewPassword) {
+        pwMatches = false;
+        showElements("pwMismatch");
+    }
+    else {
+        pwMatches = true;
+        hideElements("pwMismatch")
+    }
 
     createButton = document.getElementById("createAccountButton");
 
-    if ( pwContainsNum && pwLongEnough && (containsInvalid == false)) { 
+    if (pwLongEnough && pwContainsNum && containsOnlyValid && pwMatches){
         createButton.disabled = false;
     }
-    else {s
+    else{
         createButton.disabled = true;
     }
 
-
-
 }
+
 
 function checkPWIn() {
     var password = getTextInput("pwInput");
@@ -145,7 +193,10 @@ function checkPWIn() {
 }
 
 function setNewPW() {
-    setLoggedIn()
+
+
+
+
 }
 
 function checkPWValid() {
