@@ -30,6 +30,9 @@ button:hover {
 }
 
 
+
+
+
 input {
     margin: 0.5em;
     text-align: center;
@@ -40,6 +43,28 @@ input {
 }
 
 
+input::file-selector-button {
+    transition-duration: 0.2s;
+    font-family: 'Lucida Console';
+    border-radius: 1em;
+    background-color: #8db5ff;
+    text-align: center;
+    padding: 0.75em;
+    margin: auto;
+}
+
+
+
+
+.download {
+    transition-duration: 0.2s;
+    font-family: 'Lucida Console';
+    border-radius: 1em;
+    background-color: #8db5ff;
+    text-align: center;
+    padding: 0.5em;
+    margin: auto;
+}
 
 .passwordAlert {
     color: red;

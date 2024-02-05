@@ -53,22 +53,39 @@
 
     <div id="loginBox" class="poshBox">
         <div>
+
+
+            <input type="file" id="fileInput">
+            <hr>
             <label for="pwInput">Password:</label>
             <input type="password" id="pwInput" placeholder="Enter password." onkeyup="checkPWValid()">
-            <button onclick="checkPWIn()" id="logInButton" disabled>Log-in</button>
+
+
         </div>
 
+        <button onclick="checkPWIn()" id="logInButton" disabled>Log-in</button>
         <button onclick="setMain()">Back</button>
+
     </div>
 
 
+
     <br>
     <br>
+
+
+
+    
 
     <div class="passwordBox" id="passwordBox">
 
+       
+
+
 
         <div>
+            <a href="path_to_file" id=".download" download="passwords.json">Download JSON</a>
+            <hr>
             <button onclick="createAccountBox()">Add</button>
             <button onclick="saveAccounts()">Save</button>
             <button onclick="setMain()">Back</button>

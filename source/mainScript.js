@@ -181,14 +181,32 @@ function checkNewPWValid() {
 }
 
 
+
+
+
+
+function importFile() {
+
+    var fileIn = document.getElementById("fileInput").files[0];
+
+    var fileRead = new FileReader();
+
+}
+
+
+
+
+
+
+
 function checkPWIn() {
     var password = getTextInput("pwInput");
 
-    alert(password)
+    alert(password);
 
     loggedInBool = true;
 
-    setLoggedIn()
+    setLoggedIn();
 
 }
 
