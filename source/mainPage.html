@@ -11,7 +11,41 @@
 </head>
 
 
+
+
+<script type="text/javascript">
+
+
+function download() {        
+    const objAnchorTag = document.getElementById('_download');
+    var objBlob = null;
+    var strName = 'Wibble.txt';
+    var strContents = 'The cat sat on the mat.';
+    if (objAnchorTag != null) {
+        objBlob = new Blob([strContents], { type: 'text/plain' });
+
+        objAnchorTag.href = URL.createObjectURL( objBlob );
+        objAnchorTag.download = strName;
+        objAnchorTag.click();
+    } //if
+}
+
+function downloadJson() {
+    
+return true;
+}
+</script>
+
+
+
 <body>
+
+
+
+
+    <a style="position:absolute; left:-999px;" href="" id="_download">THIS ELEMENT IS HIDDEN</a>
+    <button onclick="download();">Create file</button>
+
 
     <h1 class="poshBox">Password Manager</h1>
 
@@ -75,20 +109,21 @@
 
 
 
-    
+
 
     <div class="passwordBox" id="passwordBox">
 
-       
+
 
 
 
         <div>
-            <a href="path_to_file" id=".download" download="passwords.json">Download JSON</a>
+            <a href="path_to_file" class="download" download="passwords.json">Download JSON</a>
+            <button onclick="downloadJson();">Download JSON</button>
             <hr>
-            <button onclick="createAccountBox()">Add</button>
-            <button onclick="saveAccounts()">Save</button>
-            <button onclick="setMain()">Back</button>
+            <button onclick="createAccountBox();">Add</button>
+            <button onclick="saveAccounts();">Save</button>
+            <button onclick="setMain();">Back</button>
         </div>
 
     </div>
@@ -99,3 +134,4 @@
 
 </body>
 </html>
+    
