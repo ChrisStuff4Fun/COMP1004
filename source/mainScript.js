@@ -107,16 +107,23 @@ function getTextInput(inputID) {
 
 
 function hashString(stringIn) {
-    const textAsBuffer = new TextEncoder().encode(stringIn);
-    const hashBuffer = window.crypto.subtle.digest("SHA-256", textAsBuffer);
-    const hashArray = Array.from(new Uint8Array(hashBuffer));
-    const hash = hashArray
-        .map((item) => item.toString(16).padStart(2, "0"))
-        .join("");
+    var hash = CryptoJS.MD5(stringIn);
     return hash;
     
 }
 
+function encryptString(stringIn) {
+    var key = "hello";
+    var encryptStr = CryptoJS.AES.encrypt(CryptoJS.enc.Utf8.parse(stringIn), key);
+    return encryptStr.toString();
+}
+
+function decryptString(stringIn) {
+    var key = "hello";
+    var decryptStr = CryptoJS.AES.decrypt(CryptoJS.enc.Utf8.parse(stringIn), key);
+    return decryptStr.toString(CryptoJS.enc.Utf8);
+
+}
 
 /* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 
@@ -236,10 +243,13 @@ function importFile() { // Prompts upload of file
 
 
 
+function getFileHash() {
+    return hashString("hi");
+}
 
 
 
-
+<<<<<<< HEAD
 function checkPWIn() { // Checks if password inputted is correct and file for decryption has been selected
 
 
@@ -258,7 +268,34 @@ function checkPWIn() { // Checks if password inputted is correct and file for de
     }
 
     importFile();
+=======
+function checkPWIn() {
+    var password = getTextInput("pwInput").toString();
+
+    var fileHash = getFileHash();
+
+    var str = "hi";
+    alert(str);
+    var enc = encryptString(str);
+    alert(enc);
+    var unenc = decryptString(enc);
+    alert(unenc);
+
+
+
+    if (fileHash == hashString(password).toString()) {
+        loggedInBool = true;
+        setLoggedIn();
+    }
+    else {
+        alert("Incorrect credentials for selected file.");
+    }
+    
+>>>>>>> 0255cbde86c9f71e8aabf1f28cc40340c44e226c
 }
+
+
+
 
 function setNewPW() {
 
@@ -277,6 +314,8 @@ function checkPWValid() {
     else {
         button.disabled = true;
     }
+
+
 }
 
 
