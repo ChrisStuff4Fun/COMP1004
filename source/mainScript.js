@@ -108,7 +108,7 @@ function getTextInput(inputID) {
 
 function hashString(stringIn) {
     var hash = CryptoJS.MD5(stringIn);
-    return hash;
+    return hash.toString();
     
 }
 
@@ -120,9 +120,9 @@ function encryptString(stringIn) {
 
 function decryptString(stringIn) {
     var key = "hello";
-    var decryptStr = CryptoJS.AES.decrypt(CryptoJS.enc.Utf8.parse(stringIn), key);
+    var decryptStr = CryptoJS.AES.decrypt(stringIn, key);
     return decryptStr.toString(CryptoJS.enc.Utf8);
-
+    //var decryptStr = CryptoJS.AES.decrypt(CryptoJS.enc.Utf8.parse(stringIn), key);
 }
 
 /* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
@@ -243,14 +243,9 @@ function importFile() { // Prompts upload of file
 
 
 
-function getFileHash() {
-    return hashString("hi");
-}
 
 
-
-<<<<<<< HEAD
-function checkPWIn() { // Checks if password inputted is correct and file for decryption has been selected
+function checkPWIn() {  // Checks if password inputted is correct and file for decryption has been selected
 
 
     if (document.getElementById("fileInput").value != "") {
@@ -268,13 +263,19 @@ function checkPWIn() { // Checks if password inputted is correct and file for de
     }
 
     importFile();
-=======
+}
+
+function getFileHash() {
+    return hashString("Hello");
+}
+
+
 function checkPWIn() {
     var password = getTextInput("pwInput").toString();
 
     var fileHash = getFileHash();
 
-    var str = "hi";
+    var str = "wibble";
     alert(str);
     var enc = encryptString(str);
     alert(enc);
@@ -283,7 +284,7 @@ function checkPWIn() {
 
 
 
-    if (fileHash == hashString(password).toString()) {
+    if (fileHash == hashString(password)) {
         loggedInBool = true;
         setLoggedIn();
     }
@@ -291,7 +292,7 @@ function checkPWIn() {
         alert("Incorrect credentials for selected file.");
     }
     
->>>>>>> 0255cbde86c9f71e8aabf1f28cc40340c44e226c
+
 }
 
 
@@ -370,8 +371,8 @@ function newAccountBox() {
 
 
 function createAccountBox() {
-    newAccountBox()
+    newAccountBox();
 }
 
 
-
+    
