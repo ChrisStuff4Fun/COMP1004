@@ -15,11 +15,27 @@
 
 
 /*
-        Globals
+        Globals / Constants
 */
 
 var loggedInBool  = false;
 var pwRows = 0;
+var hashedPW = "";
+
+const jsonTemplate =
+    '{ \"passwordHash\": \"\", ' +
+    '  \"rows\": 0,'             + 
+    '  \"accounts\": ['          +
+    '       {'                   +
+    '       \"account\": 0,'     +
+    '       \"website\": \"\",'  +
+    '       \"usernmae\": \"\",' +
+    '       \"password\": \"\"'  +
+    '       }'                   +
+    '    ]'                      +
+    '}';
+
+
 
 /* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 
@@ -112,7 +128,7 @@ function hashString(stringIn) {
 
 
 
-function checkNewPWValid() {
+function checkNewPWValid() { // Called in account creation - Create Page
 
     var newPassword = getTextInput("newPWInput");
     var confNewPassword = getTextInput("confirmPWInput");
@@ -182,14 +198,39 @@ function checkNewPWValid() {
 
 
 
+function createFileForSave() {
+
+
+};
+
+
+function download() // Prompts download of JSON file
+{  
+    const objAnchorTag = document.getElementById("downloadHREF");
+    var objBlob = null;
+    var strName = 'Wibble.txt';
+    var strContents = jsonTemplate;
+    if (objAnchorTag != null) {
+        objBlob = new Blob([strContents], { type: 'text/plain' });
+
+        objAnchorTag.href = URL.createObjectURL(objBlob);
+        objAnchorTag.download = strName;
+        objAnchorTag.click();
+    } 
+}
 
 
 
-function importFile() {
+
+function importFile() { // Prompts upload of file 
 
     var fileIn = document.getElementById("fileInput").files[0];
 
     var fileRead = new FileReader();
+
+    fileRead.readAsText(fileIn);
+    alert(fileRead.result);
+    
 
 }
 
@@ -199,15 +240,24 @@ function importFile() {
 
 
 
-function checkPWIn() {
-    var password = getTextInput("pwInput");
+function checkPWIn() { // Checks if password inputted is correct and file for decryption has been selected
 
-    alert(password);
 
-    loggedInBool = true;
+    if (document.getElementById("fileInput").value != "") {
 
-    setLoggedIn();
+        var password = getTextInput("pwInput");
 
+        alert(password);
+
+        loggedInBool = true;
+
+        setLoggedIn();
+    }
+    else {
+        alert("No file selected.")
+    }
+
+    importFile();
 }
 
 function setNewPW() {
@@ -217,7 +267,7 @@ function setNewPW() {
 
 }
 
-function checkPWValid() {
+function checkPWValid() {     
     var inputValue = getTextInput("pwInput");
     button = document.getElementById("logInButton");
 

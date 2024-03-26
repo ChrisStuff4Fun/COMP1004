@@ -56,15 +56,7 @@ input::file-selector-button {
 
 
 
-.download {
-    transition-duration: 0.2s;
-    font-family: 'Lucida Console';
-    border-radius: 1em;
-    background-color: #8db5ff;
-    text-align: center;
-    padding: 0.5em;
-    margin: auto;
-}
+
 
 .passwordAlert {
     color: red;
