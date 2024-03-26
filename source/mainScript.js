@@ -91,16 +91,23 @@ function getTextInput(inputID) {
 
 
 function hashString(stringIn) {
-    const textAsBuffer = new TextEncoder().encode(stringIn);
-    const hashBuffer = window.crypto.subtle.digest("SHA-256", textAsBuffer);
-    const hashArray = Array.from(new Uint8Array(hashBuffer));
-    const hash = hashArray
-        .map((item) => item.toString(16).padStart(2, "0"))
-        .join("");
+    var hash = CryptoJS.MD5(stringIn);
     return hash;
     
 }
 
+function encryptString(stringIn) {
+    var key = "hello";
+    var encryptStr = CryptoJS.AES.encrypt(CryptoJS.enc.Utf8.parse(stringIn), key);
+    return encryptStr.toString();
+}
+
+function decryptString(stringIn) {
+    var key = "hello";
+    var decryptStr = CryptoJS.AES.decrypt(CryptoJS.enc.Utf8.parse(stringIn), key);
+    return decryptStr.toString(CryptoJS.enc.Utf8);
+
+}
 
 /* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 
@@ -195,20 +202,38 @@ function importFile() {
 
 
 
-
+function getFileHash() {
+    return hashString("hi");
+}
 
 
 
 function checkPWIn() {
-    var password = getTextInput("pwInput");
+    var password = getTextInput("pwInput").toString();
 
-    alert(password);
+    var fileHash = getFileHash();
 
-    loggedInBool = true;
+    var str = "hi";
+    alert(str);
+    var enc = encryptString(str);
+    alert(enc);
+    var unenc = decryptString(enc);
+    alert(unenc);
 
-    setLoggedIn();
 
+
+    if (fileHash == hashString(password).toString()) {
+        loggedInBool = true;
+        setLoggedIn();
+    }
+    else {
+        alert("Incorrect credentials for selected file.");
+    }
+    
 }
+
+
+
 
 function setNewPW() {
 
@@ -227,6 +252,8 @@ function checkPWValid() {
     else {
         button.disabled = true;
     }
+
+
 }
 
 
