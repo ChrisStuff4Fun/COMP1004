@@ -18,9 +18,13 @@
         Globals / Constants
 */
 
-var loggedInBool  = false;
-var pwRows = 0;
-var hashedPW = "";
+var loggedInBool = false;
+var fileLoaded   = false;
+var pwRows       = 0;
+var hashedPW     = "";
+var fileContents = "";
+var JSONObj      = JSON.parse("{}");
+
 
 const jsonTemplate =
     '{ \"passwordHash\": \"\", ' +
@@ -205,8 +209,21 @@ function checkNewPWValid() { // Called in account creation - Create Page
 
 
 
-function createFileForSave() {
+function createFileForSave()
+{
+    for (var i = 0; i < pwRows - 1; i++) {
 
+        var webURL = document.getElementById("websiteName" + i.toString());
+        var username = document.getElementById("username" + i.toString());
+        var password = document.getElementById("password" + i.toString());
+
+/*
+        webURL.value = JSONObj.accounts[i].website;
+        username.value = JSONObj.accounts[i].username;
+        password.value = JSONObj.accounts[i].password;     // .push to JSON obj
+        */
+    }
+    
 
 };
 
@@ -234,68 +251,74 @@ function importFile() { // Prompts upload of file
     var fileIn = document.getElementById("fileInput").files[0];
 
     var fileRead = new FileReader();
+    fileRead.onload = function (e) {  
+        //console.log(e.target.result);
+        fileContents = e.target.result;
+
+        JSONObj = JSON.parse(fileContents);
+        pwRows  = JSONObj.rows;
+
+        fileLoaded = true;
+
+        return true;
+        }
 
     fileRead.readAsText(fileIn);
-    alert(fileRead.result);
-    
 
-}
-
-
-
-
-
-function checkPWIn() {  // Checks if password inputted is correct and file for decryption has been selected
-
-
-    if (document.getElementById("fileInput").value != "") {
-
-        var password = getTextInput("pwInput");
-
-        alert(password);
-
-        loggedInBool = true;
-
-        setLoggedIn();
-    }
-    else {
-        alert("No file selected.")
-    }
-
-    importFile();
+return;
 }
 
 function getFileHash() {
+
+    alert("ahhhhh!" + JSONObj.passwordHash);
+
     return hashString("Hello");
 }
 
 
 function checkPWIn() {
-    var password = getTextInput("pwInput").toString();
 
-    var fileHash = getFileHash();
+    if (document.getElementById("fileInput").value != "") {
 
-    var str = "wibble";
-    alert(str);
-    var enc = encryptString(str);
-    alert(enc);
-    var unenc = decryptString(enc);
-    alert(unenc);
+        var password = getTextInput("pwInput").toString();
 
+        var fileHash = getFileHash();
 
+        if (fileHash == hashString(password)) {
+            loggedInBool = true;
+            setLoggedIn();
+            populateBoxes();    
+        }
+        else {
+            alert("Incorrect credentials for selected file.");
+        }
 
-    if (fileHash == hashString(password)) {
-        loggedInBool = true;
-        setLoggedIn();
     }
     else {
-        alert("Incorrect credentials for selected file.");
+        alert("No file selected.")
     }
     
 
 }
 
+function populateBoxes() {
 
+    for (var i = 0; i < pwRows - 1; i++) {
+
+        newAccountBoxBackend(i);
+        var webURL   = document.getElementById("websiteName" + i.toString());
+        var username = document.getElementById("username" + i.toString());
+        var password = document.getElementById("password" + i.toString());
+
+
+        webURL.value = JSONObj.accounts[i].website;
+        username.value = JSONObj.accounts[i].username;
+        password.value = JSONObj.accounts[i].password;
+
+    }
+
+
+}
 
 
 function setNewPW() {
@@ -309,7 +332,7 @@ function checkPWValid() {
     var inputValue = getTextInput("pwInput");
     button = document.getElementById("logInButton");
 
-    if (inputValue != "") {
+    if ( (inputValue != "") && ( fileLoaded ) ) {
         button.disabled = false;
     }
     else {
@@ -368,6 +391,41 @@ function newAccountBox() {
     return newAccBox;
 }
 
+function newAccountBoxBackend(rowNum) {
+
+    var parent = document.getElementById("passwordBox");
+    var newAccBox = document.createElement("div");
+
+
+    var webURL = document.createElement("input");
+    webURL.type = "text";
+    webURL.id = "websiteName" + rowNum;
+    webURL.placeholder = "Website Name";
+    newAccBox.append(webURL);
+
+    var username = document.createElement("input");
+    username.type = "text";
+    username.id = "username" + rowNum;
+    username.placeholder = "Username";
+    newAccBox.append(username);
+
+    var password = document.createElement("input");
+    password.type = "text";
+    password.id = "password" + rowNum;
+    password.placeholder = "Password";
+    newAccBox.append(password);
+
+    var deleteButton = document.createElement("button");
+    deleteButton.setAttribute("onclick", "deleteField(this)");
+    deleteButton.textContent = "Delete";
+    newAccBox.append(deleteButton);
+
+    newAccBox.id = "pwFieldDiv" + rowNum;
+
+    parent.appendChild(newAccBox);
+
+    return newAccBox;
+}
 
 
 function createAccountBox() {

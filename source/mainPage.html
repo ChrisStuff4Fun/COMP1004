@@ -55,7 +55,7 @@
     <!--   Login Menu    ---------------------------------------------------------------------------------->
     <div id="loginBox" class="poshBox">
         <div>
-            <input type="file" id="fileInput">
+            <input type="file" id="fileInput" accept="text" onchange="importFile()">
             <hr>
             <label for="pwInput">Password:</label>
             <input type="password" id="pwInput" placeholder="Enter password." onkeyup="checkPWValid()">
