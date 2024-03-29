@@ -18,8 +18,10 @@
         Globals / Constants
 */
 
+const jsonTemplate = JSON.parse("{\"passwordHash\": null, \"rows\": 0, \"accounts\": []}"); 
+
 var loggedInBool = false;
-var fileLoaded = false;
+var fileLoaded   = false;
 
 var pwRows = 0;
 
@@ -28,9 +30,10 @@ var fileContents = "";
 var fileName     = "";
 var encKey       = "";
 
-var JSONObj = JSON.parse("{}");
+var JSONObj    = JSON.parse("{}");
+var JSONObjOut = jsonTemplate;
 
-const jsonTemplate = JSON.parse("{\"passwordHash\": null, \"rows\": 0, \"accounts\": []}"); 
+
 console.log(jsonTemplate);
 
     
@@ -207,8 +210,9 @@ function createFileForSave()
 
     masterPW = document.getElementById("masterPW").value;
 
-    JSONObj.passwordHash = hashString(masterPW);
-    JSONObj.rows = pwRows;
+
+    JSONObjOut.passwordHash = hashString(masterPW);
+    JSONObjOut.rows = pwRows;
 
     for (var i = 0; i < pwRows; i++)
     {
@@ -224,11 +228,11 @@ function createFileForSave()
         accountRowTemplate.username = username;
         accountRowTemplate.password = password;
 
-        JSONObj.accounts.push(accountRowTemplate);
+        JSONObjOut.accounts.push(accountRowTemplate);
 
     }
     
-    return JSON.stringify(JSONObj);
+    return JSON.stringify(JSONObjOut);
     
 };
 
@@ -246,8 +250,6 @@ function download() // Prompts download of JSON file
         objAnchorTag.click();
     } 
 }
-
-
 
 
 function importFile() { // Prompts upload of file 
@@ -354,10 +356,28 @@ function checkPWValid() {
 
 
 
+function toggleShowPw(element) {
+
+    var elementRow = element.id.replace(/[^0-9]/g, '');
+
+    var pwBox = document.getElementById("password" + elementRow);
+
+    if (pwBox.type == "password") {
+        element.textContent = "Hide";
+        pwBox.type = "text";
+
+    }
+    else {
+        element.textContent = "Show";
+        pwBox.type = "password";
+    }
+}
+
 function deleteField(currentElement) {
 
     var parentDiv = currentElement.parentElement;
     parentDiv.parentNode.removeChild(parentDiv);
+    pwRows -= 1;
 
 }
 
@@ -371,22 +391,28 @@ function newAccountBox() {
     webURL.type  = "text";
     webURL.id = "websiteName" + pwRows;
     webURL.placeholder = "Website Name";
-    webURL.onkeyup = "inputFieldChange()";
+    webURL.setAttribute("onkeyup", "inputFieldChange()");
     newAccBox.append(webURL);
 
     var username = document.createElement("input");
     username.type = "text";
     username.id = "username" + pwRows;
     username.placeholder = "Username";
-    username.onkeyup = "inputFieldChange()";
+    username.setAttribute("onkeyup", "inputFieldChange()");
     newAccBox.append(username);
 
     var password = document.createElement("input");
-    password.type = "text";
+    password.type = "password";
     password.id = "password" + pwRows;
     password.placeholder = "Password";
-    password.onkeyup = "inputFieldChange()";
+    password.setAttribute("onkeyup", "inputFieldChange()");
     newAccBox.append(password);
+
+    var showBox = document.createElement("button");
+    showBox.id = "showButton" + pwRows;
+    showBox.setAttribute("onclick", "toggleShowPw(this)")
+    showBox.textContent = "Show";
+    newAccBox.append(showBox);
 
     var deleteButton = document.createElement("button");
     deleteButton.setAttribute("onclick", "deleteField(this)");
@@ -412,22 +438,28 @@ function newAccountBoxBackend(rowNum) {
     webURL.type = "text";
     webURL.id = "websiteName" + rowNum;
     webURL.placeholder = "Website Name";
-    webURL.onkeyup = "inputFieldChange()";
+    webURL.setAttribute("onkeyup", "inputFieldChange()");
     newAccBox.append(webURL);
 
     var username = document.createElement("input");
     username.type = "text";
     username.id = "username" + rowNum;
     username.placeholder = "Username";
-    username.onkeyup = "inputFieldChange()";
+    username.setAttribute("onkeyup", "inputFieldChange()");
     newAccBox.append(username);
 
     var password = document.createElement("input");
-    password.type = "text";
+    password.type = "password";
     password.id = "password" + rowNum;
     password.placeholder = "Password";
-    password.onkeyup = "inputFieldChange()";
+    password.setAttribute("onkeyup", "inputFieldChange()");
     newAccBox.append(password);
+
+    var showBox = document.createElement("button");
+    showBox.id = "showButton" + rowNum;
+    showBox.setAttribute("onclick", "toggleShowPw(this)")
+    showBox.textContent = "Show";
+    newAccBox.append(showBox);
 
     var deleteButton = document.createElement("button");
     deleteButton.setAttribute("onclick", "deleteField(this)");
