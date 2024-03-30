@@ -20,10 +20,10 @@
 
     <!--   Landing Page    ---------------------------------------------------------------------------------->
     <div id="mainMenu" class="poshBox">
-        <button onclick="setLogin()">Login</button>
+        <button onclick="setLogin()">Decrypt Vault File</button>
         <br>
         <br>
-        <button onclick="setCreate()">Create</button>
+        <button onclick="setCreate()">Create Vault File</button>
     </div>
     <!--   Landing Page    ---------------------------------------------------------------------------------->
 
@@ -33,6 +33,10 @@
 
     <div id="createBox" class="poshBox">
         <div>
+            <label for="vaultName">Vault Name:</label>
+            <input type="password" id="vaultName" placeholder="Vault Name">
+        </div>
+        <div>
             <label for="newPWInput">New password:</label>
             <input type="password" id="newPWInput" placeholder="Enter password" onkeyup="checkNewPWValid()">
         </div>
@@ -40,6 +44,7 @@
             <label for="confirmPWInput">Confirm password:</label>
             <input type="password" id="confirmPWInput" placeholder="Enter password" onkeyup="checkNewPWValid()">
         </div>
+        <br>
         <button onclick="setNewPW()" id="createAccountButton" disabled>Create</button>
         <button onclick="location.reload()">Back</button>
 
@@ -82,12 +87,14 @@
             <a href="" class="hidden" id="downloadHREF">THIS ELEMENT IS HIDDEN</a>
             <label for="masterPW">Master Password:</label>
             <input type="password" id="masterPW" placeholder="Master Password">
-
+            <label for="vaultNameLoggedIn">Vault Name:</label>
+            <input type="password" id="vaultNameLoggedIn" placeholder="Vault Name">
+            <hr>
             <button onclick="download();" id="saveButton">Save</button>
             <button onclick="createAccountBox();">Add</button>
             <button onclick="location.reload()">Back</button>
             <hr>
-            <p id="changeText" hidden >Changes made. Don't forget to save!</p>
+            <p id="changeText" hidden>Changes made. Don't forget to save!</p>
         </div>
 
     </div>
