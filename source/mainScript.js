@@ -240,6 +240,7 @@ function createFileForSave()
 function download() // Prompts download of JSON file
 {  
     const objAnchorTag = document.getElementById("downloadHREF");
+    fileName = document.getElementById("vaultNameLoggedIn").value;
     var objBlob = null;
  
     if (objAnchorTag != null) {
@@ -292,6 +293,8 @@ function checkPWIn() {
             PWmaster.value = password;
             encKey         = password;
 
+            document.getElementById("vaultNameLoggedIn").value = fileName;
+
             setLoggedIn();
             populateBoxes();    
 
@@ -335,7 +338,8 @@ function setNewPW(password) {
     setLoggedIn();
     encKey = document.getElementById("confirmPWInput").value;
     document.getElementById("masterPW").value = encKey;
-
+    document.getElementById("vaultNameLoggedIn").value = document.getElementById("vaultName").value;
+    
     JSONObj = jsonTemplate; 
 
 }

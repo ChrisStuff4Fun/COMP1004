@@ -12,9 +12,11 @@
 
 
 <body>
+    <hr class="fadedLine">
+    <h1>PassMaster Password Vault</h1>
+    <hr class="fadedLine">
 
-    <h1 class="poshBox">PassMaster Password Vault</h1>
-
+    <br>
     <br>
 
 
@@ -26,15 +28,12 @@
         <button onclick="setCreate()">Create Vault File</button>
     </div>
     <!--   Landing Page    ---------------------------------------------------------------------------------->
-
-
-
     <!--   Create Menu    ---------------------------------------------------------------------------------->
 
     <div id="createBox" class="poshBox">
         <div>
             <label for="vaultName">Vault Name:</label>
-            <input type="password" id="vaultName" placeholder="Vault Name">
+            <input type="text" id="vaultName" placeholder="Vault Name">
         </div>
         <div>
             <label for="newPWInput">New password:</label>
@@ -88,7 +87,7 @@
             <label for="masterPW">Master Password:</label>
             <input type="password" id="masterPW" placeholder="Master Password">
             <label for="vaultNameLoggedIn">Vault Name:</label>
-            <input type="password" id="vaultNameLoggedIn" placeholder="Vault Name">
+            <input type="text" id="vaultNameLoggedIn" placeholder="Vault Name">
             <hr>
             <button onclick="download();" id="saveButton">Save</button>
             <button onclick="createAccountBox();">Add</button>
@@ -99,8 +98,6 @@
 
     </div>
     <!--   Modular P/W Box    ---------------------------------------------------------------------------------->
-
-
     <!--               JS                   -->
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.0.0/crypto-js.min.js"></script>
     <script type="text/javascript">Window.onload = setMain();</script>
