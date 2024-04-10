@@ -23,18 +23,17 @@ const jsonTemplate = JSON.parse("{\"passwordHash\": null, \"rows\": 0, \"account
 var loggedInBool = false;
 var fileLoaded   = false;
 
-var pwRows = 0;
+var pwRows         = 0;
+var binaryDivCount = 0;
 
 var hashedPW     = "";
 var fileContents = "";
 var fileName     = "";
 var encKey       = "";
 
+
 var JSONObj    = JSON.parse("{}");
 var JSONObjOut = jsonTemplate;
-
-
-console.log(jsonTemplate);
 
     
 
@@ -482,5 +481,33 @@ function createAccountBox() {
     newAccountBox();
 }
 
+function createBinaryBackdrop() {
 
-    
+    var intY              = 0;
+    var intDivHeight      = 20;
+    var objDiv            = null;
+    var objParentDiv = document.getElementById( 'binaryBackdrop' );
+
+    if ( objParentDiv != null ) {
+        for ( intY = 0; intY < (document.documentElement.clientHeight ); intY += intDivHeight ) {
+            objDiv = document.createElement( 'div' );
+            if ( objDiv != null ) {
+                objDiv.id             = 'binaryDiv_' + binaryDivCount.toString().padStart( 4, '0' );
+                objDiv.style.position = 'absolute';
+                objDiv.style.top      = intY.toString() + 'px';
+                objDiv.style.left     = '0px';
+                objDiv.style.maxWidth = objParentDiv.offsetWidth;
+                objDiv.style.height   = intDivHeight.toString() + 'px';
+                objDiv.innerHTML = '';
+                objParentDiv.appendChild(objDiv);
+
+                while (objDiv.offsetWidth < objParentDiv.offsetWidth) {
+                   objDiv.innerHTML += '&nbsp;' + Math.floor(Math.random() * 2).toString() + '&nbsp;';
+                }
+                binaryDivCount++;
+                } //if-div-created
+            } //for-y
+        } //if
+
+return;
+}    
