@@ -1,4 +1,14 @@
-﻿<!DOCTYPE html>
+﻿<!--               HEADER                   -->
+<!--
+    
+    COMP1004 Coursework Project By Chris Catlin
+    SPA HTML Page for password management, using encryption and hashing to secure locally stored JSON "vault files".
+
+-->
+<!--               HEADER                  -->
+
+
+<!DOCTYPE html>
 
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml">
 <head>
@@ -14,105 +24,116 @@
 <body>
     <div id="binaryBackdrop" class="binaryBackground"></div>
 
-
+    <!--               CSS Backdrop                   -->
 
     <div style="position:relative;">
         <hr class="fadedLine">
         <h1>PassMaster Password Vault</h1>
         <hr class="fadedLine">
     </div>
+
+
+
+    <br />
+    <br />
+    <!--               CSS Backdrop                   -->
+
+
+    <!--   Landing Page    ---------------------------------------------------------------------------------->
+    <div id="mainMenu" class="poshBox">
+        <button onclick="setLogin()">Decrypt Vault File</button>        <!--      Decrypt      -->
+        <br />
+        <br />
+        <button onclick="setCreate()">Create Vault File</button>          <!--    Create new        -->
+    </div>
+    <!--   Landing Page    ---------------------------------------------------------------------------------->
+
+
+    <!--   Create Menu    ---------------------------------------------------------------------------------->
+
+    <div id="createBox" class="poshBox">
+        <div>
+            <label for="vaultName">Vault Name:</label>
+            <input type="text" id="vaultName" placeholder="Vault Name">    <!--      Choose vault name      -->
+        </div>
+        <div>
+            <label for="newPWInput">New password:</label>
+            <input type="password" id="newPWInput" placeholder="Enter password" onkeyup="checkNewPWValid()">        <!--      Enter new password       -->
+        </div>
+        <div>
+            <label for="confirmPWInput">Confirm password:</label>
+            <input type="password" id="confirmPWInput" placeholder="Enter password" onkeyup="checkNewPWValid()">      <!--     Confirm new password       -->
+        </div>
+        <br />
+        <button onclick="setNewPW()" id="createAccountButton" disabled>Create</button>                   <!--      Continue button      -->
+        <button onclick="location.reload()">Back</button>                                                 <!--     Back button       -->
+       
+        
     
+    
+        <!--     Alerts for invalid PWs       -->
+        <p id="pwMismatch" class="passwordAlert">Passwords do not match.</p>
+        <p id="pwTooShort" class="passwordAlert">Password must be at least 10 characters long.</p>
+        <p id="invalidChars" class="passwordAlert">Password must not contain any special characters.</p>
+        <p id="noNumber" class="passwordAlert">Password must contain at least 1 number.</p>
+
+    </div>
+    <!--   Create Menu    ---------------------------------------------------------------------------------->
 
 
-                <br />
-                <br />
+    <!--   Login Menu    ---------------------------------------------------------------------------------->
+    <div id="loginBox" class="poshBox">
+        <div>
+            <input type="file" id="fileInput" accept="text" onchange="importFile()">          <!--    File select input        -->
+            <hr />
+            <label for="pwInput">Password:</label>
+            <input type="password" id="pwInput" placeholder="Enter password." onkeyup="checkPWValid()">        <!--     Enter password       -->
 
 
-                <!--   Landing Page    ---------------------------------------------------------------------------------->
-                <div id="mainMenu" class="poshBox" >
-                    <button onclick="setLogin()">Decrypt Vault File</button>
-                    <br />
-                    <br />
-                    <button onclick="setCreate()">Create Vault File</button>
-                </div>
-                <!--   Landing Page    ---------------------------------------------------------------------------------->
-                <!--   Create Menu    ---------------------------------------------------------------------------------->
+        </div>
 
-                <div id="createBox" class="poshBox">
-                    <div>
-                        <label for="vaultName">Vault Name:</label>
-                        <input type="text" id="vaultName" placeholder="Vault Name">
-                    </div>
-                    <div>
-                        <label for="newPWInput">New password:</label>
-                        <input type="password" id="newPWInput" placeholder="Enter password" onkeyup="checkNewPWValid()">
-                    </div>
-                    <div>
-                        <label for="confirmPWInput">Confirm password:</label>
-                        <input type="password" id="confirmPWInput" placeholder="Enter password" onkeyup="checkNewPWValid()">
-                    </div>
-                    <br />
-                    <button onclick="setNewPW()" id="createAccountButton" disabled>Create</button>
-                    <button onclick="location.reload()">Back</button>
+        <button onclick="checkPWIn()" id="logInButton" disabled>Log-in</button>          <!--     Login button     -->
+        <button onclick="location.reload()">Back</button>      <!--     Back button       -->
+
+    </div>
+    <!--   Login Menu    ---------------------------------------------------------------------------------->
 
 
-
-                    <p id="pwMismatch" class="passwordAlert">Passwords do not match.</p>
-                    <p id="pwTooShort" class="passwordAlert">Password must be at least 5 characters long.</p>
-                    <p id="invalidChars" class="passwordAlert">Password must not contain any special characters.</p>
-                    <p id="noNumber" class="passwordAlert">Password must contain at least 1 number.</p>
-
-                </div>
-                <!--   Create Menu    ---------------------------------------------------------------------------------->
-                <!--   Login Menu    ---------------------------------------------------------------------------------->
-                <div id="loginBox" class="poshBox">
-                    <div>
-                        <input type="file" id="fileInput" accept="text" onchange="importFile()">
-                            <hr />
-                            <label for="pwInput">Password:</label>
-                            <input type="password" id="pwInput" placeholder="Enter password." onkeyup="checkPWValid()">
-
-
-                            </div>
-
-                            <button onclick="checkPWIn()" id="logInButton" disabled>Log-in</button>
-                            <button onclick="location.reload()">Back</button>
-
-                    </div>
-                    <!--   Login Menu    ---------------------------------------------------------------------------------->
-
-
-                    <br />
-                    <br />
+    <br />
+    <br />
 
 
 
 
-                    <!--   Modular P/W Box    ---------------------------------------------------------------------------------->
-                    <div class="passwordBox" id="passwordBox">
-                        <div>
-                            <a href="" class="hidden" id="downloadHREF">THIS ELEMENT IS HIDDEN</a>
-                            <label for="masterPW">Master Password:</label>
-                            <input type="password" id="masterPW" placeholder="Master Password">
-                                <label for="vaultNameLoggedIn">Vault Name:</label>
-                                <input type="text" id="vaultNameLoggedIn" placeholder="Vault Name">
-                                    <hr />
-                                    <button onclick="download();" id="saveButton">Save</button>
-                                    <button onclick="createAccountBox();">Add Row</button>
-                                    <button onclick="location.reload()">Back</button>
-                                    <hr />
-                                    <p id="changeText" hidden>Changes made. Don't forget to save!</p>
-                                </div>
+    <!--   Modular P/W Box    ---------------------------------------------------------------------------------->
+    <div class="passwordBox" id="passwordBox">
+        <div>
+            <a href="" class="hidden" id="downloadHREF">THIS ELEMENT IS HIDDEN</a>             <!--     HREF for simulated click       -->
+            <label for="masterPW">Master Password:</label>
+            <input type="password" id="masterPW" placeholder="Master Password">          <!--      Master PW      -->
+            <label for="vaultNameLoggedIn">Vault Name:</label>
+            <input type="text" id="vaultNameLoggedIn" placeholder="Vault Name">         <!--      Current vault name      -->
+            <hr />
+            <button onclick="download();" id="saveButton">Save</button>            <!--      Save button      -->
+            <button onclick="createAccountBox();">Add Row</button>                 <!--      Add row button      -->
+            <button onclick="location.reload()">Back</button>                       <!--       Back button     -->
+            <hr />
+            <p id="changeText" hidden>Changes made. Don't forget to save!</p>       <!--     Warning text       -->
+        </div>
 
-                        </div>
-                        <!--   Modular P/W Box    ---------------------------------------------------------------------------------->
-                        <!--               JS                   -->
+    </div>
+    <!--   Modular P/W Box    ---------------------------------------------------------------------------------->
+
+
+    <!--               JS                   -->
+
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.0.0/crypto-js.min.js"></script>
     <script type="text/javascript">
         createBinaryBackdrop();
         setMain();
     </script>
 
+    <!--               JS                   -->
+
 </body>
 </html>
-    
